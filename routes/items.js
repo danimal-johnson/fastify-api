@@ -1,4 +1,5 @@
 const items = require('../Items');
+const { getItems, getItem } = require('../controllers/items');
 
 function itemRoutes (fastify, options, done) {
 
@@ -21,9 +22,7 @@ function itemRoutes (fastify, options, done) {
         }
       }
     },
-    handler: function (req, res) {
-      res.send(items)
-    }
+    handler: getItems
   }
 
   // Options for 'get single item'
@@ -33,10 +32,7 @@ function itemRoutes (fastify, options, done) {
         200: Item
       }
     },
-    handler: function (req, res) {
-      const {id} = req.params;
-      res.send(items.find(item => item.id === id));
-    }
+    handler: getItem
   }
 
   // Get all items
