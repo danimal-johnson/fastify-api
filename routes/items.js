@@ -20,6 +20,9 @@ function itemRoutes (fastify, options, done) {
           items: Item  
         }
       }
+    },
+    handler: function (req, res) {
+      res.send(items)
     }
   }
 
@@ -29,21 +32,19 @@ function itemRoutes (fastify, options, done) {
       response: {
         200: Item
       }
+    },
+    handler: function (req, res) {
+      const {id} = req.params;
+      res.send(items.find(item => item.id === id));
     }
   }
 
   // Get all items
-  fastify.get('/items', getItemsOpts, (req, res) => {
-    res.send(items);
-  });
+  fastify.get('/items', getItemsOpts);
   
-  // Get multiple one item
-  fastify.get('/items/:id', getItemOpts, (req, res) => {
-    const {id} = req.params;
-    res.send(items.find(item => item.id === id));
-  });
-
-
+  // Get single item
+  fastify.get('/items/:id', getItemOpts);
+  
   done();
 }
 
