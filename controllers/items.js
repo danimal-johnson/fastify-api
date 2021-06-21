@@ -27,10 +27,21 @@ const deleteItem = (req, res) => {
   res.send({ message: `Item ${id} successfully deleted.` });
 }
 
+const updateItem = (req, res) => {
+  const {id} = req.params;
+  const {name}  = req.body;
+
+  // Find the existing ID and replace the array element with our new record.
+  items = items.map(item => (item.id === id ? {id, name} : item));
+
+  res.send(items.find(item => item.id === id));
+}
+
 module.exports = {
   getItems,
   getItem,
   addItem,
-  deleteItem
+  deleteItem,
+  updateItem
 }
 
